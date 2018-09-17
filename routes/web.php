@@ -28,11 +28,12 @@ Route::get('profile', function(){
 Route::get('/cariin/user','CariinController@userIndex');
 Route::post('/cariin/user/store','CariinController@userStore');
 Route::post('/cariin/user/update','CariinController@userUpdate');
-Route::get('/cariin/user/edit','CariinController@userEdit');
-Route::get('/cariin/user/delete','CariinController@userDelete');
+Route::delete('/cariin/user/delete','CariinController@userDestroy');
 
 Route::get('/cariin/recipe','CariinController@recipeIndex');
 Route::post('/cariin/recipe/store','CariinController@recipeStore');
+Route::post('/cariin/recipe/update','CariinController@recipeUpdate');
+Route::delete('/cariin/recipe/delete','CariinController@recipeDestroy');
 
 Route::post('/api/cariin/user/register', 'CariinApiController@register');
 Route::post('/api/cariin/user/login', 'CariinApiController@login');

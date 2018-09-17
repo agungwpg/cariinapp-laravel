@@ -32,6 +32,12 @@ class CariinController extends Controller
     $user->update();
     return back();
     }
+    public function userDestroy(Request $request){
+        $user_id = $request->delete_user_id;
+        $user = CariinUser::findOrFail($user_id);
+        $user->delete();
+        return back();
+    }
     // ======================== END USER =======================================
     // ======================== RECIPE =======================================
 
@@ -58,6 +64,34 @@ class CariinController extends Controller
             ['nama_bahan'=>$request->bahan[3]],
             ['nama_bahan'=>$request->bahan[4]],
         ]);
+        return back();
+    }
+    public function recipeUpdate(Request $request){
+        // dd($request);
+        $bahan = "";
+        foreach($request->bahan as $b){
+            $bahan = $bahan." ".$b;
+        }
+        $recipe_id = $request->recipe_id;
+        $user_id = $request->user_id;
+
+        $recipe = CariinRecipe::find($recipe_id);
+        $recipe->id_user = $request->select_user;
+        $recipe->nama = $request->nama_recipe;
+        $recipe->bahan = $bahan;
+        $recipe->cara_masak = $request->cara_masak;
+        $recipe->update();
+        $details = $recipe->detail;
+        for ($i=0; $i < count($details) ; $i++) {
+            $details[$i]->nama_bahan = $request->bahan[$i];
+            $details[$i]->update();
+        }
+        return back();
+    }
+    public function recipeDestroy(Request $request){
+        $recipe_id = $request->delete_recipe_id;
+        $recipe = CariinRecipe::findOrFail($recipe_id);
+        $recipe->delete();
         return back();
     }
 

@@ -34,7 +34,7 @@
                                     data-toggle="modal"
                                     data-target="#editRecipe">Edit</button>
                                         /
-                                        <button class="btn btn-danger" data-toggle="modal" data-target="#delete">Delete</button>
+                                        <button class="btn btn-danger" data-recipeid="{{$rcp->id}}" data-toggle="modal" data-target="#deleteRecipe">Delete</button>
                                     </td>
                         </tr>
                     @endforeach
@@ -99,21 +99,21 @@
 </div>
 
 <!-- Modal -->
-<div class="modal modal-danger fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal modal-danger fade" id="deleteRecipe" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 <div class="modal-dialog" role="document">
 <div class="modal-content">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
     <h4 class="modal-title text-center" id="myModalLabel">Delete Confirmation</h4>
   </div>
-  <form action="{{route('category.destroy','test')}}" method="post">
+  <form action="{{url('/cariin/recipe/delete')}}" method="post">
           {{method_field('delete')}}
           {{csrf_field()}}
       <div class="modal-body">
             <p class="text-center">
                 Are you sure you want to delete this?
             </p>
-              <input type="hidden" name="category_id" id="cat_id" value="">
+              <input type="hidden" name="delete_recipe_id" id="delete_recipe_id" value="">
 
       </div>
       <div class="modal-footer">

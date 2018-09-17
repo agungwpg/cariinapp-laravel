@@ -191,6 +191,18 @@
 
       modal.find('.modal-body #cat_id').val(cat_id);
     })
+    $('#deleteUser').on('show.bs.modal', function (event) {
+      var button = $(event.relatedTarget)
+      var user_id = button.data('userid')
+      var modal = $(this)
+      modal.find('.modal-body #delete_user_id').val(user_id);
+    })
+    $('#deleteRecipe').on('show.bs.modal', function (event) {
+      var button = $(event.relatedTarget)
+      var recipe_id = button.data('recipeid')
+      var modal = $(this)
+      modal.find('.modal-body #delete_recipe_id').val(recipe_id);
+    })
   </script>
 
 </body>
