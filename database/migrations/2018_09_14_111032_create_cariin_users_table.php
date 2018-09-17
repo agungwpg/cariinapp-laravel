@@ -21,7 +21,7 @@ class CreateCariinUsersTable extends Migration
             $table->string('email')->unique();
             $table->enum('isEmailConfirmed',['0','1'])->default('0');
             $table->string('activation_token');
-            $table->string('avatar');
+            $table->string('avatar')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

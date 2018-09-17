@@ -11,5 +11,5 @@ class CariinUser extends Model
     public function recipe(){
         return $this->hasMany('App\CariinRecipe','id_user');
     }
-    protected $fillable = ['username','name','email','isEmailConfirmed','password', 'activation_token'];
+    protected $fillable = ['username','name','email','isEmailConfirmed','password', 'activation_token', 'avatar'];
 }
