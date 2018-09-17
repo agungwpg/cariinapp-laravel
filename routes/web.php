@@ -31,6 +31,9 @@ Route::post('/cariin/user/update','CariinController@userUpdate');
 Route::get('/cariin/user/edit','CariinController@userEdit');
 Route::get('/cariin/user/delete','CariinController@userDelete');
 
+Route::get('/cariin/recipe','CariinController@recipeIndex');
+Route::post('/cariin/recipe/store','CariinController@recipeStore');
+
 Route::post('/api/cariin/user/register', 'CariinApiController@register');
 Route::post('/api/cariin/user/login', 'CariinApiController@login');
 Route::get('/api/cariin/user/confirm_email', 'CariinApiController@confirmEmail');
