@@ -95,6 +95,31 @@ class CariinApiController extends Controller
             return json_encode($response);
         }
     }
+    public function updateUser(Request $request, Response $response){
+        $user = CariinUser::findOrFail($request->id);
+        if($user){
+            if(CariinUser::where('email',$request->email))
+            {
+                $user->username = $request->username;
+                $user->password = bcrypt($request->password);
+                $user->email = $request->email;
+                $user->name = $request->name;
+                $user->update();
+                $response = array('message' => 'success edit user with id '.$request->id, 'status' => 'success');
+                return json_encode($response);
+            }
+            else
+            {
+                $response = array('message' => 'email already exists', 'status' => 'failed');
+                return json_encode($response);
+            }
+        }
+        else
+        {
+            $response = array('message' => 'update fail, no such id', 'status' => 'failed');
+            return json_encode($response);
+        }
+    }
     //CARIINAPP USER END ============================================================================================
     //CARIINAPP RECIPE ==============================================================================================
 
@@ -148,7 +173,7 @@ class CariinApiController extends Controller
             }
         }
         else{
-            return json_encode(array('meessage' => 'go fuck ur self, no such id','status'=>'failed'));
+            return json_encode(array('meessage' => 'sorry, no such id','status'=>'failed'));
         }
     }
     public function deleteRecipe(Request $request, Response $response, $id){
@@ -159,27 +184,10 @@ class CariinApiController extends Controller
         }
         else
         {
-            return json_encode(array('meessage' => 'go fuck ur self, no such id','status'=>'failed'));
+            return json_encode(array('meessage' => 'sorry, no such id','status'=>'failed'));
         }
     }
     public function getRecipe(Request $request, Response $response){
-        // if(!$id){
-        //     $response = array('status' => 'success','data' => CariinRecipe::all());
-        //     return json_encode($response);
-        // }
-        // else
-        // {
-        //     $recipe = CariinUser::findOrFail($id)->recipe->all();
-        //     if(!empty($recipe)){
-        //         $response = array('status' =>'success','data'=>$recipe);
-        //         return json_encode($response);
-        //     }
-        //     else
-        //     {
-        //         $response = array('message' =>'there is no user with that id','status'=>'success');
-        //         return json_encode($response);
-        //     }
-        // }
         $id_user = $request->user;
         $id_recipe = $request->recipe;
         if (!empty($id_user) && !empty($id_recipe)) {
