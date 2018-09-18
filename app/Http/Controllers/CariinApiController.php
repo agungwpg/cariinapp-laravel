@@ -234,6 +234,25 @@ class CariinApiController extends Controller
             return json_encode($response);
         }
     }
+    public function searchRecipe(Request $request, Response $response){
+        $recipe = new CariinRecipe;
+        $recipe = !empty($request->q1) ? $recipe->orWhere('bahan','like',"%".$request->q1."%"):$recipe;
+        $recipe = !empty($request->q2) ? $recipe->orWhere('bahan','like',"%".$request->q2."%"):$recipe;
+        $recipe = !empty($request->q3) ? $recipe->orWhere('bahan','like',"%".$request->q3."%"):$recipe;
+        $recipe = !empty($request->q4) ? $recipe->orWhere('bahan','like',"%".$request->q4."%"):$recipe;
+        $recipe = !empty($request->q5) ? $recipe->orWhere('bahan','like',"%".$request->q5."%"):$recipe;
+
+        if(!empty($request->q1)||!empty($request->q2)||!empty($request->q3)||!empty($request->q4)||!empty($request->q5))
+        {
+            $response = array('status'=>'success','data' => $recipe->get());
+            return json_encode($response);
+        }
+        else
+        {
+            $response = array('status'=>'failed','message' => 'bad request');
+            return json_encode($response);
+        }
+    }
 
     //CARIINAPP RECIPE END ============================================================================================
 }
