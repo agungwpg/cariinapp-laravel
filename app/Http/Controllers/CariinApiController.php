@@ -120,6 +120,17 @@ class CariinApiController extends Controller
             return json_encode($response);
         }
     }
+    public function deleteUser(Request $request, Response $response, $id){
+        $user = CariinUser::find($id);
+        if($user)
+        {
+            $user->delete();
+        }
+        else
+        {
+            return json_encode(array('meessage' => 'sorry, no such id','status'=>'failed'));
+        }
+    }
     //CARIINAPP USER END ============================================================================================
     //CARIINAPP RECIPE ==============================================================================================
 
