@@ -39,7 +39,7 @@ Route::post('/api/cariin/user/register', 'CariinApiController@register');
 Route::post('/api/cariin/user/login', 'CariinApiController@login');
 Route::put('/api/cariin/user/edit', 'CariinApiController@updateUser');
 Route::get('/api/cariin/user/confirm_email', 'CariinApiController@confirmEmail');
-Route::delete('/api/cariin/recipe/delete/{id?}', 'CariinApiController@deleteUser');
+Route::delete('/api/cariin/user/delete/{id?}', 'CariinApiController@deleteUser');
 
 Route::post('/api/cariin/recipe/add', 'CariinApiController@addRecipe');
 Route::get('/api/cariin/recipe', 'CariinApiController@getRecipe');
