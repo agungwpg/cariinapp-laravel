@@ -193,7 +193,7 @@ class CariinApiController extends Controller
         if($recipe)
         {
             $recipe->delete();
-            return json_encode(array('meessage' => 'user deleted','status'=>'success'));
+            return json_encode(array('meessage' => 'recipe deleted','status'=>'success'));
         }
         else
         {
