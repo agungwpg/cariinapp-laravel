@@ -125,6 +125,7 @@ class CariinApiController extends Controller
         if($user)
         {
             $user->delete();
+            return json_encode(array('meessage' => 'user deleted','status'=>'success'));
         }
         else
         {
@@ -192,6 +193,7 @@ class CariinApiController extends Controller
         if($recipe)
         {
             $recipe->delete();
+            return json_encode(array('meessage' => 'user deleted','status'=>'success'));
         }
         else
         {
@@ -216,6 +218,7 @@ class CariinApiController extends Controller
         else if (!empty($id_user))
         {
             $recipe = CariinUser::findOrFail($id_user)->recipe->all();
+            // if(!empty($recipe)){
             if(!empty($recipe)){
                 $response = array('status' =>'success','data'=>$recipe);
                 return json_encode($response);
@@ -242,6 +245,20 @@ class CariinApiController extends Controller
         else
         {
             $response = array('status' => 'success','data' => CariinRecipe::all());
+            return json_encode($response);
+        }
+    }
+    public function getRecipeDetailBahan(Request $request, Response $response){
+        $id_recipe = $request->id;
+        $recipe = CariinRecipe::findOrFail($id_recipe)->detail->pluck('nama_bahan');
+        if(!empty($recipe))
+        {
+            $response = array('status' => 'success','data' => $recipe);
+            return json_encode($response);
+        }
+        else
+        {
+            $response = array('message' =>'there is no recipe with that id','status'=>'failed');
             return json_encode($response);
         }
     }
