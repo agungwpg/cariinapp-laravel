@@ -49,6 +49,13 @@ class CariinApiController extends Controller
         $username = $request->username;
         $password = $request->password;
         $user = CariinUser::where('username',$username)->first();
+
+        if(empty($user))
+        {
+            $response = array('message' => 'login fail, no such user','status'=>'failed');
+            return json_encode($response);
+        }
+
         if(Hash::check($password,$user->password))
         {
             //user ada dengan password yang benar
