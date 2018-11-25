@@ -47,6 +47,10 @@ Route::get('/api/cariin/recipe/detail/{id?}', 'CariinApiController@getRecipeDeta
 Route::put('/api/cariin/recipe/update/{id?}', 'CariinApiController@updateRecipe');
 Route::delete('/api/cariin/recipe/delete/{id?}', 'CariinApiController@deleteRecipe');
 Route::get('/api/cariin/recipe/search', 'CariinApiController@searchRecipe');
+
+Route::post('/api/cariin/recipe/addfav', 'CariinApiController@addFav');
+Route::delete('/api/cariin/recipe/delfav', 'CariinApiController@delFav');
+Route::get('api/cariin/recipe/fav','CariinApiController@listFav');
 // Route::get('/api/cariin/recipe/{id}', function(){
 //     return 'asdsa';
 // });

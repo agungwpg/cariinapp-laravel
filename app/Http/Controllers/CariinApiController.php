@@ -11,6 +11,7 @@ use Illuminate\Http\Response;
 use App\CariinUser;
 use App\CariinRecipe;
 use App\CariinRecipeDetail;
+use App\CariinFav;
 use Illuminate\Support\Facades\Crypt;
 
 class CariinApiController extends Controller
@@ -75,14 +76,14 @@ class CariinApiController extends Controller
             else
             {
                 //belum confirm
-                $response = array('message' => 'please confirm ur account','status'=>'failed',);
+                $response = array('message' => 'please confirm ur account','status'=>'failed');
                 return json_encode($response);
             }
         }
         else
         {
             //user dan password tidak match
-            $response = array('message' => 'the credential does not match','status'=>'failed',);
+            $response = array('message' => 'the credential does not match','status'=>'failed');
             return json_encode($response);
         }
     }
@@ -290,4 +291,50 @@ class CariinApiController extends Controller
     }
 
     //CARIINAPP RECIPE END ============================================================================================
+    //tambahan favorit
+    public function addFav(Request $request, Response $response){
+        $cariin_user = CariinUser::find($request->id_user);
+        if(!empty($cariin_user))
+        {
+            $cariin_fav = CariinFav::where('id_user',$request->id_user)->where('id_recipe',$request->id_recipe)->first();
+            if(!empty($cariin_fav))
+            {
+                $response = array('status'=>'failed','message'=>'the recipe is user favorite');
+            }
+            else
+            {
+                CariinFav::create([
+                    'id_user'=>$request->id_user,
+                    'id_recipe'=>$request->id_recipe
+                ]);
+                $response = array('status'=>'success');
+            }
+        }
+        else
+        {
+            $response = array('status'=>'failed','message'=>'user not found');
+        }
+        return json_encode($response);
+    }
+    public function delFav(Request $request, Response $response)
+    {
+        $cariin_fav = CariinFav::where('id_user',$request->id_user)->where('id_recipe',$request->id_recipe)->first();
+        if(!empty($cariin_fav))
+        {
+            $cariin_fav->delete();
+            $response = array('status'=>'success');
+        }
+        else
+        {
+            $response = array('status'=>'failed','message'=>'faild to delete, fav not found');
+        }
+        return json_encode($response);
+    }
+    public function listFav(Request $request, Response $response)
+    {
+        $cariin_user = CariinUser::find($request->id_user);
+        $id_recipes = $cariin_user->favs->pluck('id_recipe');
+        $data = CariinRecipe::find($id_recipes);
+        return json_encode($data);
+    }
 }
