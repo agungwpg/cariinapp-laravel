@@ -45,6 +45,8 @@ class CariinController extends Controller
         $recipes = CariinRecipe::all();
         $users = CariinUser::all();
         return view('recipe.index',compact('recipes','users'));
+        // $rcp = CariinRecipe::find(2);
+        // return json_encode($rcp->user);
     }
     public function recipeStore(Request $request){
         $bahan = "";
